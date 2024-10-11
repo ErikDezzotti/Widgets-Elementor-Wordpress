@@ -1,0 +1,157 @@
+para ativar use: neon-button
+
+
+
+.neon-button .elementor-button {
+  /* ==== CONFIGURAÇÕES DO BOTÃO ==== */
+
+  /* Cor de fundo do botão */
+  --button-background: #161616;
+
+  /* Espaçamento interno do botão (padding) */
+  --button-padding: 15px 40px;
+
+  /* Tamanho da fonte do botão */
+  --button-font-size: 16px;
+
+  /* Raio da borda do botão para arredondamento */
+  --button-border-radius: 30px;
+
+  /* Cores do efeito de neon (7 cores) */
+  --glow-color-1: #ff0000;
+  --glow-color-2: #ff7300;
+  --glow-color-3: #fffb00;
+  --glow-color-4: #48ff00;
+  --glow-color-5: #00ffd5;
+  --glow-color-6: #002bff;
+  --glow-color-7: #ff00c8;
+
+  /* Velocidade da animação do neon (em segundos) */
+  --neon-animation-speed: 20s;
+
+  /* Velocidade da animação do glow interno (em segundos) */
+  --glow-animation-speed: 5s;
+
+  /* Velocidade da animação do neon no hover (em segundos) */
+  --neon-hover-speed: 30s;
+
+  /* Tamanho do efeito de brilho */
+  --glow-size: 8px;
+
+  /* Transições */
+  transition: transform 0.3s ease-in-out;
+  
+  /* Estilos básicos do botão */
+  position: relative;
+  padding: var(--button-padding);
+  font-size: var(--button-font-size);
+  background-color: var(--button-background);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  z-index: 0;
+  border-radius: var(--button-border-radius);
+}
+
+/* ==== CAPA DE FUNDO DO BOTÃO ==== */
+.neon-button .elementor-button::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--button-background);
+  left: 0;
+  top: 0;
+  border-radius: var(--button-border-radius);
+  transition: background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+}
+
+/* ==== EFEITO DE NEON NA BORDA ==== */
+.neon-button .elementor-button::before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    var(--glow-color-1),
+    var(--glow-color-2),
+    var(--glow-color-3),
+    var(--glow-color-4),
+    var(--glow-color-5),
+    var(--glow-color-6),
+    var(--glow-color-7),
+    var(--glow-color-1)
+  );
+  position: absolute;
+  top: calc(-1 * var(--glow-size));
+  left: calc(-1 * var(--glow-size));
+  background-size: 600%;
+  z-index: -1;
+  width: calc(100% + (var(--glow-size) * 2));
+  height: calc(100% + (var(--glow-size) * 2));
+  filter: blur(8px);
+  animation: glowing var(--neon-animation-speed) linear infinite;
+  border-radius: var(--button-border-radius);
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in-out, animation 0.3s ease-in-out;
+}
+
+/* ==== EFEITOS ADICIONAIS NO HOVER ==== */
+.neon-button .elementor-button:hover::before {
+  opacity: 1;
+  animation: glowing-hover var(--neon-hover-speed) linear infinite, glow 2s ease-in-out infinite alternate;
+}
+
+.neon-button .elementor-button:hover::after {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+/* ==== EFEITO DE ELEVAÇÃO NO HOVER ==== */
+.neon-button .elementor-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* ==== EFEITO AO CLICAR NO BOTÃO ==== */
+.neon-button .elementor-button:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease-in-out;
+}
+
+.neon-button .elementor-button:active::after {
+  background: transparent;
+}
+
+/* ==== ANIMAÇÕES ==== */
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@keyframes glowing-hover {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.4);
+  }
+}
