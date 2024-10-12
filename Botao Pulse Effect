@@ -1,0 +1,158 @@
+Ativar com classe: botao-pulse-effect
+
+
+/* 
+  =====================================================
+  BeautifulAddons - Botão Estratégico de Vendas
+  =====================================================
+  Este CSS cria um botão estilizado e interativo para páginas de vendas.
+  Inclui efeitos de hover e clique avançados, além de animações atraentes.
+  Todas as cores e tamanhos podem ser facilmente personalizados através das variáveis definidas abaixo.
+  
+  -----------------------------------------------------
+  Instruções de Personalização:
+  - **Cores:** Altere as variáveis de cores para ajustar o esquema de cores do botão.
+  - **Tamanhos:** Ajuste `--ba-btn-padding` e `--ba-btn-borda-raio` para modificar a aparência.
+  - **Efeitos:** Modifique as durações e tipos de transição para adaptar os efeitos de hover e clique.
+  - **Intensidade do Brilho:** Ajuste `--ba-btn-brilho-intensidade` de 0 a 10 para controlar a intensidade do brilho no texto e ícone.
+  =====================================================
+*/
+
+/* Variáveis personalizáveis */
+:root {
+  /* Cores do botão */
+  --ba-btn-cor-primaria: #0B04D9; /* Cor principal do gradiente */
+  --ba-btn-cor-secundaria: #C007D9; /* Cor secundária do gradiente */
+  
+  /* Tamanhos e dimensões */
+  --ba-btn-padding: 25px 50px; /* Padding vertical e horizontal */
+  --ba-btn-borda-raio: 50px; /* Raio da borda para arredondamento */
+  
+  /* Efeitos e transições */
+  --ba-btn-transicao: 0.3s ease; /* Duração e tipo de transição */
+  
+  /* Sombra do botão */
+  --ba-btn-sombra: 0 10px 20px rgba(0, 0, 0, 0.2);
+  --ba-btn-sombra-hover: 0 15px 30px rgba(0, 0, 0, 0.3);
+  --ba-btn-sombra-active: 0 5px 10px rgba(0, 0, 0, 0.2);
+  
+  /* Animações */
+  --ba-btn-animacao-pulse: 2s infinite;
+
+  /* Intensidade do brilho no texto e ícone */
+  --ba-btn-brilho-intensidade: 4; /* Controla a intensidade do brilho (valor entre 0 e 10) */
+}
+
+/* Estilos principais do botão */
+.botao-pulse-effect .elementor-button {
+  background: linear-gradient(135deg, var(--ba-btn-cor-primaria), var(--ba-btn-cor-secundaria));
+  border: none;
+  border-radius: var(--ba-btn-borda-raio);
+  padding: var(--ba-btn-padding);
+  transition: all var(--ba-btn-transicao);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--ba-btn-sombra);
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  z-index: 1;
+}
+
+/* Efeito de brilho no hover */
+.botao-pulse-effect .elementor-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+  transform: translateX(-100%);
+  transition: transform 0.75s ease;
+  z-index: -1;
+}
+
+/* Efeitos de hover */
+.botao-pulse-effect .elementor-button:hover {
+  transform: scale(1.05);
+  box-shadow: var(--ba-btn-sombra-hover);
+}
+
+.botao-pulse-effect .elementor-button:hover::before {
+  transform: translateX(100%);
+}
+
+/* Efeito de brilho no texto e ícone ao passar o mouse */
+.botao-pulse-effect .elementor-button:hover span,
+.botao-pulse-effect .elementor-button:hover i {
+  text-shadow: 0 0 calc(var(--ba-btn-brilho-intensidade) * 2px) rgba(255, 255, 255, calc(var(--ba-btn-brilho-intensidade) / 10));
+}
+
+/* Efeito de clique */
+.botao-pulse-effect .elementor-button:active {
+  transform: scale(0.95);
+  box-shadow: var(--ba-btn-sombra-active);
+  transition: all var(--ba-btn-transicao);
+}
+
+/* Remover contorno no clique */
+.botao-pulse-effect .elementor-button:focus {
+  outline: none;
+}
+
+/* Animação de pulso */
+@keyframes ba-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(192, 7, 217, 0.7); }
+  70% { box-shadow: 0 0 0 20px rgba(192, 7, 217, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(192, 7, 217, 0); }
+}
+
+.botao-pulse-effect .elementor-button.ba-pulse {
+  animation: ba-pulse var(--ba-btn-animacao-pulse);
+}
+
+/* Animação de gradiente infinita */
+@keyframes ba-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.botao-pulse-effect .elementor-button {
+  background-size: 200% auto;
+  animation: ba-gradient 5s linear infinite;
+}
+
+/* Efeito de borda neon */
+.botao-pulse-effect .elementor-button::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: var(--ba-btn-borda-raio);
+  background: linear-gradient(135deg, var(--ba-btn-cor-primaria), var(--ba-btn-cor-secundaria));
+  filter: blur(15px);
+  opacity: 0;
+  transition: opacity var(--ba-btn-transicao);
+  z-index: -2;
+}
+
+.botao-pulse-effect .elementor-button:hover::after {
+  opacity: 1;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .botao-pulse-effect .elementor-button {
+    padding: 20px 40px;
+  }
+}
+
+/* 
+  =====================================================
+  FIM DO CSS
+  =====================================================
+*/
